@@ -16,5 +16,15 @@ namespace Week6MidtermReview
         }
 
         public abstract double GrossEarnings { get; }
+
+        public double Tax
+        {
+            get { return GrossEarnings * 0.20; }
+        }
+
+        public double NetEarnings
+        {
+            get { return GrossEarnings - Tax; }
+        }
     }
 }
