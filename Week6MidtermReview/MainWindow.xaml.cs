@@ -16,6 +16,9 @@ namespace Week6MidtermReview
     /// </summary>
     public partial class MainWindow : Window
     {
+        Employee _emp;
+        List<Employee> _employees = new List<Employee>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,6 +35,36 @@ namespace Week6MidtermReview
         {
             lblInput2.Content = "Hours Worked";
             lblInput3.Content = "Hourly Wage";
+        }
+
+        private void btnCalculate_Click(object sender, RoutedEventArgs e)
+        {
+            string name = txtName.Text;
+
+            if (rdoHourly.IsChecked == true)
+            {
+                int hours = int.Parse(txtInput2.Text);
+                double wage = double.Parse(txtInput3.Text);
+
+                _emp = new HourlyEmployee(name, hours, wage);
+            }
+            else
+            {
+                double grossSales = double.Parse(txtInput2.Text);
+                double commissionRate = double.Parse(txtInput3.Text) / 100;
+
+                _emp = new CommissionEmployee(name, grossSales, commissionRate);
+            }
+
+            txtGrossEarnings.Text = _emp.GrossEarnings.ToString("C");
+            txtTax.Text = _emp.Tax.ToString("C");
+            txtNetEarnings.Text = _emp.NetEarnings.ToString("C");
+
+            // add emp name to listbox
+            lstEmployees.Items.Add(name);
+
+            // add the emp object to the List<>
+            _employees.Add(_emp);
         }
     }
 }
